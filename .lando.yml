@@ -1,0 +1,39 @@
+name: hydra
+recipe: drupal8
+config:
+  webroot: drupal/web
+proxy:
+  frontend:
+    - fe-hydra.lndo.site
+services:
+  frontend:
+    overrides:
+      environment:
+        API_URL: hydra.lndo.site
+    type: node
+    command: cd /app/frontend && yarn dev --hostname=0.0.0.0 --port=80
+    build:
+      - cd /app/frontend && yarn
+  appserver:
+    overrides:
+      environment:
+        SITE_MAIL: redskull@hydra.lndo.site
+        ACCOUNT_MAIL: redskull@hydra.lndo.site
+        SITE_NAME: 'Hydra Interanet'
+        ACCOUNT_NAME: redskull
+        MYSQL_DATABASE: drupal8
+        MYSQL_HOSTNAME: database
+        MYSQL_PORT: 3306
+        MYSQL_USER: drupal8
+        MYSQL_PASSWORD: drupal8
+        ACCOUNT_PASSWORD: capsucks
+    build:
+      - cd /app/drupal && composer install
+tooling:
+  install:
+    service: appserver
+    cmd: cd /app/drupal && composer run-script install:with-mysql
+  drush:
+    service: appserver
+    cmd: cd /app/drupal && drush --uri=hydra.lndo.site
+
