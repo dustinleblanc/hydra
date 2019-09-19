@@ -5,7 +5,20 @@ config:
 proxy:
   frontend:
     - fe-hydra.lndo.site
+  # Just ignore this...
+  slides:
+    - slides-hydra.lndo.site:9000
 services:
+  # and this...
+  slides:
+    type: compose
+    services:
+      image: gitpitch/desktop:pro
+      ports:
+        - '9000'
+      command: bin/desktop -Dconfig.file=conf/gitpitch.conf -Dhttp.port=9000
+      volumes:
+        - './:/repo'
   frontend:
     overrides:
       environment:
@@ -37,3 +50,5 @@ tooling:
     service: appserver
     cmd: cd /app/drupal && drush --uri=hydra.lndo.site
 
+  yarn:
+    service: frontend
