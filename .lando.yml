@@ -2,6 +2,8 @@ name: hydra
 recipe: drupal8
 config:
   webroot: drupal/web
+env_file:
+  - .env
 proxy:
   frontend:
     - fe-hydra.lndo.site
@@ -22,7 +24,7 @@ services:
   frontend:
     overrides:
       environment:
-        API_URL: hydra.lndo.site
+        API_URL: http://hydra.lndo.site
     type: node
     command: cd /app/frontend && yarn dev --hostname=0.0.0.0 --port=80
     build:

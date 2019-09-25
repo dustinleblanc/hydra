@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios', '~/plugins/drupal-api'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,7 +49,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    debug: process.env.NODE_ENV !== 'production'
+  },
   /*
    ** Build configuration
    */
@@ -58,5 +60,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  env: {
+    CONSUMER_ID: process.env.CONSUMER_ID
   }
 }

@@ -1,77 +1,87 @@
-# Let's Get Started
+---?image=assets/LonelyMountain.jpg&opacity=20
+# There and Back Again
+
+@css[text-blue](A Headless Tale)
+
 
 ---
 
-## Add Some Slide Candy
+Hi, I'm Dustin @emoji[wave]
 
-![IMAGE](assets/img/presentation.png)
+![PIC](assets/me.jpg)
 
----?color=linear-gradient(180deg, white 75%, black 25%)
-@title[Customize Slide Layout]
-
-@snap[west span-50]
-## Customize the Layout
-@snapend
-
-@snap[east span-50]
-![IMAGE](assets/img/presentation.png)
-@snapend
-
-@snap[south span-100 text-white]
-Snap Layouts let you create custom slide designs directly within your markdown.
-@snapend
-
----?color=linear-gradient(90deg, #5384AD 65%, white 35%)
-@title[Add A Little Imagination]
-
-@snap[north-west h4-white]
-#### And start presenting...
-@snapend
-
-@snap[west span-55]
-@ul[list-spaced-bullets text-white text-09]
-- You will be amazed
-- What you can achieve
-- *With a little imagination...*
-- And **GitPitch Markdown**
-@ulend
-@snapend
-
-@snap[east span-45]
-@img[shadow](assets/img/conference.png)
-@snapend
+- @DustinLeblanc on Twitter
+- @dustinleblanc on Drupal.org...and pretty much everywhere else
 
 ---
 
-@snap[north-east span-100 text-pink text-06]
-Let your code do the talking!
-@snapend
+## Overview
 
-```sql zoom-18
-CREATE TABLE "topic" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "forum_id" integer NOT NULL,
-    "subject" varchar(255) NOT NULL
-);
-ALTER TABLE "topic"
-ADD CONSTRAINT forum_id
-FOREIGN KEY ("forum_id")
-REFERENCES "forum" ("id");
+- Architecture / Setup
+- Handling Common Gotchas
+- Alternatives
+
+---
+
+## The Setup
+
+- ContentaCMS Backend
+- NuxtJS Frontend
+
+---
+
+### Why Contenta?
+
+- Has a majority of the useful modules for decoupled pre-installed
+- Pre-configured for Headless Drupal
+
+---
+
+### Why NuxtJS?
+
+- Vue is Awesome!
+- Routing, Axios, and other common stuff already figured out.
+
+---
+
+## Local Development
+
+We're using Lando to set this up
+
+```yaml
+name: hydra
+recipe: drupal8
+config:
+  webroot: drupal/web
 ```
 
-@snap[south span-100 text-gray text-08]
-@[1-5](You can step-and-ZOOM into fenced-code blocks, source files, and Github GIST.)
-@[6,7, zoom-13](Using GitPitch live code presenting with optional annotations.)
-@[8-9, zoom-12](This means no more switching between your slide deck and IDE on stage.)
+@snap[south span-100 text-08]
+@[1, zoom-17](The name of the app)
+@[2, zoom-17](Using the D8 recipe as the default)
+@[3-4, zoom-17](Set the webroot to the nested Drupal directory)
 @snapend
 
+---
 
----?image=assets/img/presenter.jpg
+### Getting Nuxt Running in the Same App
 
-@snap[north span-100 h2-white]
-## Now It's Your Turn
+```yaml
+services:
+  frontend:
+    type: node
+    command: cd /app/frontend && yarn dev --hostname=0.0.0.0 --port=80
+    overrides:
+      environment:
+        API_URL: hydra.lndo.site
+    build:
+      - cd /app/frontend && yarn
+```
+@snap[south span-100 text-08]
+@[1-3, zoom-17](Add a container to run the JS frontend)
+@[4, zoom-17](Boot Nuxt in dev mode, expose to any host on port 80)
+@[5-7, zoom-17](Tell Nuxt where to find our API site)
+@[8-9, zoom-17](Get dependencies on startup to make the experience smooth for devs)
 @snapend
 
-@snap[south span-100 text-06]
-[Click here to jump straight into the interactive feature guides in the GitPitch Docs @fa[external-link]](https://gitpitch.com/docs/getting-started/tutorial/)
-@snapend
+---
+
