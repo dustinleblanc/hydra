@@ -280,7 +280,7 @@ $config_directories = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'rLuDkbGcGCBWXQpTGZM-ti9sGMNJcvMMhUklGmXYnXcqAbtq5hktbvUTzq-7Ddfmxb-6FUrB1w';
+$settings['hash_salt'] = 'CNoqaCR-r6cWKTBkXRLF8mQaNwS8YKdUbQdlExOwI6pzreR1Ed6zalUT3CMt59yeahxszDesAA';
 
 /**
  * Deployment identifier.
@@ -787,4 +787,4 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
-$config_directories['sync'] = '../config/sync';
+$config_directories['sync'] = 'profiles/contrib/contenta_jsonapi/config/sync';

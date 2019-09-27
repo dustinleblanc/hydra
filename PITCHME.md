@@ -32,15 +32,19 @@ Hi, I'm Dustin @emoji[wave]
 
 ### Why Contenta?
 
+@ul
 - Has a majority of the useful modules for decoupled pre-installed
 - Pre-configured for Headless Drupal
+@ulend
 
 ---
 
 ### Why NuxtJS?
 
+@ul
 - Vue is Awesome!
 - Routing, Axios, and other common stuff already figured out.
+@ulend
 
 ---
 
@@ -85,3 +89,42 @@ services:
 
 ---
 
+## 99 Problems
+@ul
+- Routing
+- Image Styles
+- SEO
+- Authentication / Authorization
+@ulend
+
+---
+
+### Routing
+
+TL;DR - Install the Decoupled Router module (included with contenta)
+
+---
+
+### Translating a path to the proper Drupal entity
+
+```javascript
+asyncData({ app, route }) {
+  return app.$axios
+    .get(`/router/translate-path?path=${route.path}`)
+    .then((response) => {
+      const responseData = response.data
+      return app.$axios.get(response.data.jsonapi.individual).then((data) => {
+        return {
+          responseData,
+          entity: data.data
+        }
+      })
+    })
+}
+```
+
+@snap[south span-100 text-08]
+@[2, zoom-17](Call the axios library provided by Nuxt plugin)
+@[3, zoom-17](Hit the decoupled router and give it the current path to translate)
+@[6-11, zoom-17](Use the router response to call the API again and get the node/etc, then prep it for display)
+@snapend

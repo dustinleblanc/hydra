@@ -1,5 +1,11 @@
 name: hydra
 recipe: drupal8
+excludes:
+  - drupal/core
+  - drupal/vendor
+  - drupal/web/modules/contrib
+  - drupal/web/themes/contrib
+  - frontend/node_modules
 config:
   webroot: drupal/web
 env_file:
