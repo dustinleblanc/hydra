@@ -105,7 +105,7 @@ TL;DR - Install the Decoupled Router module (included with contenta)
 
 ---
 
-### Translating a path to the proper Drupal entity
+#### Translating a path to the proper Drupal entity
 
 ```javascript
 asyncData({ app, route }) {
@@ -124,7 +124,106 @@ asyncData({ app, route }) {
 ```
 
 @snap[south span-100 text-08]
-@[2, zoom-17](Call the axios library provided by Nuxt plugin)
-@[3, zoom-17](Hit the decoupled router and give it the current path to translate)
-@[6-11, zoom-17](Use the router response to call the API again and get the node/etc, then prep it for display)
+@[2, zoom-7](Call the axios library provided by Nuxt plugin)
+@[3, zoom-7](Hit the decoupled router and give it the current path to translate)
+@[6-11, zoom-7](Use the router response to call the API again and get the node/etc, then prep it for display)
 @snapend
+
+---
+
+##### Fallback Path: _.vue
+
+@ul
+- Wildcard loads for any routes you haven't explicitly defined
+- Warning: You lose some error handling tools from Nuxt
+@ulend
+
+---
+
+### Image Styles
+
+TL;DR - Use the Consumer Image Styles module.
+
+---
+
+```javascript
+asyncData({ app }) {
+  return app.$axios
+    .get(
+      '/api/recipes?fields[recipes]=title,summary,cookingTime,image&include=image.imageFile'
+    )
+    .then((response) => {
+      const recipes = map(response.data.data, (recipe) => ({
+        attributes: recipe.attributes,
+        image: app.$buildImg(
+          response.data,
+          recipe,
+          'image',
+          'recipe_list_350_300'
+        )
+      }))
+      return { response: response.data, recipes }
+    })
+}
+```
+@snap[south span-100 text-08]
+@[4](Make sure to call &include=media_field_name.file_field_name)
+@[9-14](Custom function in custom plugin to do the ugly work)
+@snapend
+
+---
+
+Blech. A bit ugly, but we do what we must...
+
+```javascript
+// ~/plugins/drupal-api/lib/media.js
+buildImg(
+  topLevelResponse = {},
+  entity = null,
+  relationship = 'field_image',
+  imageStyle = 'thumbnail',
+  fallback = {}
+) {
+  const media = find(
+    get(topLevelResponse, 'included'),
+    (include) =>
+      get(include, 'id') ===
+      get(entity, `relationships.${relationship}.data.id`)
+  )
+  const file = find(
+    get(topLevelResponse, 'included'),
+    (include) =>
+      get(include, 'id') === get(media, `relationships.imageFile.data.id`)
+  )
+  return {
+    src: get(file, `links.${imageStyle}.href`),
+    // @todo: Replace this with real alt meta if available.
+    alt: get(file, 'attributes.filename')
+  }
+}
+```
+@snap[south span-100 text-08]
+@[9-14](Retrieve the 'media' entity that is referenced on the node)
+@[15-19](Retrieve the 'file' entity that is referenced on the media item)
+@[20-24](Return an object that can be consumed by Vue using the image style data)
+@snapend
+
+---
+
+### SEO - Metatags
+
+@ul
+- Use the vue meta stuff built into Nuxt
+- Use metatags in Drupal and fetch that info in Nuxt
+@ulend
+
+---
+
+### Authentication / Authorization
+
+@ul
+- Good luck
+- Hope you don't need it
+@ulend
+
+---

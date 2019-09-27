@@ -14,7 +14,6 @@ import AppRecipeCard from '~/components/AppRecipeCard'
 export default {
   components: { AppRecipeCard },
   asyncData({ app }) {
-    // test.
     return app.$axios
       .get(
         '/api/recipes?fields[recipes]=title,summary,cookingTime,image&include=image.imageFile'
