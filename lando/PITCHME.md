@@ -145,3 +145,23 @@ Cons:
 @ulend
 
 ---
+
+## What's right for you?
+
+@ul
+- It Depends...
+- I'm biased!
+- But I sometimes use other solutions than Lando
+@ulend
+
+---
+
+### Lone Wolves
+
+Probably go bespoke or minimalist
+
+---
+
+### Teams
+
+Use either a custom portable solution, hosting provider specific, or support many methods
