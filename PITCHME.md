@@ -231,3 +231,28 @@ buildImg(
 @ulend
 
 ---
+
+## Alternatives?
+
+@ul
+- Use JSON-API...but only for routes where you need it
+- Use Vue/React/etc in an existing app
+@ulend
+
+---
+
+## Testing?
+
+@ul
+- Talkback
+- CodeceptJS
+@ulend
+
+---
+
+## Thanks!
+
+@ul
+- Support Lando @ https://patreon.com/devwithlando
+- Questions?
+@ulend
