@@ -10,8 +10,12 @@ Hi, I'm Dustin @emoji[wave]
 
 ![PIC](assets/me.jpg)
 
+@ul
 - @DustinLeblanc on Twitter
 - @dustinleblanc on Drupal.org...and pretty much everywhere else
+- Senior Software Engineer @ Tandem
+- Co-Maintainer of Lando
+@ulend
 
 ---
 
