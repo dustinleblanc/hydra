@@ -1,6 +1,7 @@
 ---?image=https://www.needpix.com/photo/download/162909/hippos-africa-safari-animal-wildlife-wild-zoology-mammal-species&opacity=50
 
-# LocalDev, Lando, and the Local Development Landscape Safari
+# LocalDev, Lando, and
+## the Local Development Landscape Safari
 
 ---
 
